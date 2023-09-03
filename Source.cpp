@@ -58,10 +58,34 @@ public:
 	Zoo& operator=(const Zoo&) = default;
 
 	//moveassignment 
-	Zoo& operator=(const Zoo&&) = default;
+	Zoo& operator=(const Zoo&&) = delete;
+
 private:
 	int d1, d2;
 };
+
+class Foo
+{
+public:
+	Foo(int i) :_i(i) {}
+	Foo() = default;
+
+	Foo(const Foo& x) :_i(x._i) {}//copy ctor
+	//Foo(const Foo&) = delete;
+	//Foo(const Foo&) = default;
+
+	Foo& operator=(const Foo& x) { _i = x._i; return *this; }
+	//Foo& operator=(const Foo& x) = default;
+	//Foo& operator=(const Foo& x) = delete;
+
+	//void func1() = default;
+	void func2() = delete;
+
+private:
+	int _i;
+};
+/*09 - end */
+
 
 int main()
 {
@@ -113,5 +137,7 @@ int main()
 	}
 	cout << endl;
 	/*09 - BigThree =default  =delete */
+	//delete 可以用于任何函数 ，=0只能用在虚函数 上
+	Foo f1(5);
 
 }
